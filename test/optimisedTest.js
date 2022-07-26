@@ -1,15 +1,15 @@
 import { expect, use } from 'chai';
-import {request} from '../model/user'
-// import supertest from 'supertest';
-// const request = supertest('https://gorest.co.in/public/v2/');
-const accessToken = require('../config/env')
+import request from '../config/common'
+import env from '../config/env'
+
+import {createRandomUser} from '../model/user';
 
 
 describe('Using async wait', () => {
     let userId, postId;
 
     before( async() => {
-       userId = await createRandomUser() 
+       userId =await createRandomUser();
     });
     it('Post/users', async() => {    
         const data ={  
@@ -20,7 +20,7 @@ describe('Using async wait', () => {
     
         const res= await request
         .post('posts')
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', `Bearer ${env.accessToken}`)
         .send(data)
 
            console.log(res.body);
@@ -31,7 +31,7 @@ describe('Using async wait', () => {
     it('GET/posts/id', async() => {
         const res=await request
         .get(`posts/${postId}`)
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', `Bearer ${env.accessToken}`)
         
         console.log(res.body);
         expect(res.body.id).to.eq(postId);

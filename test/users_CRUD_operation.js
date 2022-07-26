@@ -63,7 +63,7 @@ it('Post/user with data', () => {
             status : 'active'
         }
         
-        request.put(`users/${userId}`)
+        return request.put(`users/${userId}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .send(data)
         .then((res)=>{
@@ -80,7 +80,7 @@ it('Post/user with data', () => {
     describe('Delete the created user', () => {
     it('Delete/users/:id', ()=>{
 
-        request.delete(`users/${userId}`)
+        return request.delete(`users/${userId}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .then((res)=>{
             console.log(res.body);

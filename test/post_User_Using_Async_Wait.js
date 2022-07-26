@@ -3,9 +3,10 @@ import supertest from 'supertest';
 const request = supertest('https://gorest.co.in/public/v2/');
 const accessToken= "0cbf1fe5581d59d2ced6d94b5c91227050eff309ac548ef564040f56b21ef8b6";
 
-describe('Using async wait', () => {
-    let userId, postId;
+let userId, postId;
 
+describe('Using async wait', () => {
+    
     before(async() => {
         const userData ={
             email : `sony${Math.floor(Math.random()*10000)}@yahoo.com`,
@@ -49,9 +50,10 @@ describe('Using async wait', () => {
         expect(res.status).to.eq(200);
         
         
-    });
-    describe('Negative Testing', () => {
-        it('401 Authentication error', async() => {
+    }); 
+});
+describe('Negative Testing', () => {
+    it('401 Authentication error', async() => {
             const data ={  
                 user_id : userId,
                 title : "hello this is my second id",
@@ -68,9 +70,9 @@ describe('Using async wait', () => {
                expect(res.body.message).to.eq('Authentication failed')
 
             //    postId = res.body.id; 
-        });
+    });
 
-        it('422 Validation failed', async() => {
+    it('422 Validation failed', async() => {
             const data ={  
                 user_id : userId,
                 title : "hello this is my second id",
@@ -88,7 +90,6 @@ describe('Using async wait', () => {
                expect(res.body[0].message).to.eq("can't be blank");
 
             //    postId = res.body.id; 
-        });
     });
 });
 

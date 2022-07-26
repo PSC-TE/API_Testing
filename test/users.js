@@ -26,12 +26,13 @@ describe('Users', () => {
  */
     it('Get/users/:id', (done) => {
         request
-       .get(`users/100?access-token=${accessToken}`).end((err,res)=>{
+       .get(`users/2875?access-token=${accessToken}`)
+       .end((err,res)=>{
            // console.log(err);
            console.log(res.body);
             // expect(res.body.data).to.not.be.null;
-            expect(res.body.id).to.be.eq(100);
-            done()
+            expect(res.body.id).to.equal(2875)
+            done();
        })
        
    });
@@ -39,14 +40,15 @@ describe('Users', () => {
    /**
     * Get users using query parameters
     */
-   it('Get/users?queryParameters', async() => {
+   it('Get/users?queryParameters', () => {
        const url=`users?access-token=${accessToken}&page=5&gender=male&status=active`
-    return request.get(url).then((res)=>{
+    return request.get(url)
+    .then((res)=>{
        // console.log(err);
-    //    console.log(res.body);
+       console.log(res.body);
         // expect(res.body.data).to.not.be.null;
         // expect(res.body.page).to.eq(5);
-        console.log(res.body[0]);
+        // console.log(res.body[0]);
         // expect(res.body[0].id).to.eq(2893);
         
         (res.body).forEach((data) => {
@@ -83,8 +85,8 @@ describe('Users', () => {
      */
     it('Post/user with data', () => {
         const data ={
-            email : "sony112@yahoo.com",
-            name : "sony112",
+            email : "sony512@yahoo.com",
+            name : "sony12",
             gender :"male",
             status : "active"
             }
@@ -114,13 +116,13 @@ describe('Users', () => {
             status : 'active'
         }
         
-        request.put('users/100')
+        return request.put('users/2738')
         .set('Authorization', `Bearer ${accessToken}`)
         .send(data)
         .then((res)=>{
             console.log(res.body);
             console.log(res.status);
-            expect(res.body.data).to.deep.include(data)
+            expect(res.body).to.deep.include(data)
         })
     });
 
@@ -129,13 +131,16 @@ describe('Users', () => {
      */
     it('Delete/users/:id', ()=>{
 
-        request.delete('users/3049')
+        return request.delete('users/2866')
         .set('Authorization', `Bearer ${accessToken}`)
         .then((res)=>{
             console.log(res.body);
             console.log(res.status);
             expect(res.status).to.eq(204);
+           
         })
     })
 
 });
+
+
