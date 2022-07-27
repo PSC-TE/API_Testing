@@ -21,6 +21,6 @@
     "supertest": "^6.2.4"
   },
   "dependencies": {
-    "faker": "^6.6.6"
+    "faker": "^5.1.0"
   }
 }

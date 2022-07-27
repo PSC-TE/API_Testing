@@ -15,6 +15,7 @@ describe('Users', () => {
         .get(`users?access-token=${accessToken}`)
         .end((err,res)=>{
             // console.log(err);
+            // console.log(res);
             console.log(res.body);
              expect(res.body.data).to.not.be.null;
              done();

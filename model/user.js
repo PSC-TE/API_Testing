@@ -8,8 +8,8 @@ export const createRandomUser = async () => {
     const userData = {
         email : `sony${Math.floor(Math.random()*10000)}@yahoo.com`,
         name : `sony${Math.floor(Math.random()*10000)}`,
-        gender :"Male",
-        status : "Active"
+        gender :"male",
+        status : "active"
         }
 
     const res = await request
