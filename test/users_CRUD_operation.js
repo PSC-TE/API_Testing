@@ -1,9 +1,11 @@
+require ('dotenv').config();
 import { expect, use } from 'chai';
 import supertest from 'supertest';
 const request = supertest('https://gorest.co.in/public/v2/')
-const accessToken= "0cbf1fe5581d59d2ced6d94b5c91227050eff309ac548ef564040f56b21ef8b6"
+const accessToken= process.env.USER_TOKEN;
 
 
+let randomNum = Math.floor(Math.random()*10000);
 
 describe('Users', () => {
 let userId;
@@ -14,8 +16,8 @@ let userId;
 describe('Post', () => {
 it('Post/user with data', () => {
     const data ={
-        email : `sony${Math.floor(Math.random()*10000)}@yahoo.com`,
-        name : `sony${Math.floor(Math.random()*10000)}`,
+        email : `sony${randomNum}@yahoo.com`,
+        name : `sony${randomNum}`,
         gender :"male",
         status : "active"
         }
@@ -59,7 +61,7 @@ it('Post/user with data', () => {
     it('Put/users/:id', () => {
         
         const data ={
-            name : `automation + ${Math.floor(Math.random()*10000)}`,
+            name : `automation + ${randomNum}`,
             status : 'active'
         }
         

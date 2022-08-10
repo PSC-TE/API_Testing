@@ -1,7 +1,8 @@
 import { expect, use } from 'chai';
 import request from '../config/common'
-import env from '../config/env'
-
+require('dotenv').config();
+const TOKEN = process.env.USER_TOKEN;
+import { faker } from '@faker-js/faker';
 import {createRandomUser} from '../model/user';
 
 
@@ -14,13 +15,13 @@ describe('Using async wait', () => {
     it('Post/users', async() => {    
         const data ={  
             user_id : userId,
-            title : "hello this is my second id",
-            body :"this is my second user id"    
+            title : faker.lorem.sentence(),
+            body : faker.lorem.paragraph()    
             }
     
         const res= await request
         .post('posts')
-        .set('Authorization', `Bearer ${env.accessToken}`)
+        .set('Authorization', `Bearer ${TOKEN}`)
         .send(data)
 
            console.log(res.body);
@@ -31,7 +32,7 @@ describe('Using async wait', () => {
     it('GET/posts/id', async() => {
         const res=await request
         .get(`posts/${postId}`)
-        .set('Authorization', `Bearer ${env.accessToken}`)
+        .set('Authorization', `Bearer ${TOKEN}`)
         
         console.log(res.body);
         expect(res.body.id).to.eq(postId);

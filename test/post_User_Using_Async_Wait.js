@@ -1,23 +1,26 @@
+require('dotenv').config();
+const TOKEN = process.env.USER_TOKEN;
 import { expect, use } from 'chai';
 import supertest from 'supertest';
 const request = supertest('https://gorest.co.in/public/v2/');
-const accessToken= "0cbf1fe5581d59d2ced6d94b5c91227050eff309ac548ef564040f56b21ef8b6";
+import { faker } from '@faker-js/faker';
 
 let userId, postId;
+let randomNum = Math.floor(Math.random()*10000)
 
 describe('Using async wait', () => {
     
     before(async() => {
         const userData ={
-            email : `sony${Math.floor(Math.random()*10000)}@yahoo.com`,
-            name : `sony${Math.floor(Math.random()*10000)}`,
+            email : faker.internet.email(),
+            name : faker.name.findName(),
             gender :"male",
             status : "active"
             }
     
         await request
         .post('users')
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', `Bearer ${TOKEN}`)
         .send(userData)
         .then((res)=>{
             expect(res.status).to.eq(201);
@@ -28,13 +31,13 @@ describe('Using async wait', () => {
     it('Post/users', async() => {    
         const data ={  
             user_id : userId,
-            title : "hello this is my second id",
-            body :"this is my second user id"    
+            title : faker.lorem.sentence(),
+            body : faker.lorem.paragraph()    
             }
     
         const res= await request
         .post('posts')
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', `Bearer ${TOKEN}`)
         .send(data)
            console.log(res.body);
            expect(res.body).to.deep.include(data)
@@ -45,7 +48,7 @@ describe('Using async wait', () => {
     it('GET/posts/id', async() => {
         const res=await request
         .get(`posts/${postId}`)
-        .set('Authorization', `Bearer ${accessToken}`)
+        .set('Authorization', `Bearer ${TOKEN}`)
         expect(res.body.id).to.eq(postId);
         expect(res.status).to.eq(200);
         
@@ -56,8 +59,8 @@ describe('Negative Testing', () => {
     it('401 Authentication error', async() => {
             const data ={  
                 user_id : userId,
-                title : "hello this is my second id",
-                body :"this is my second user id"    
+                title : faker.lorem.sentence(),
+                body : faker.lorem.paragraph()    
                 }
         
             const res= await request
@@ -75,13 +78,13 @@ describe('Negative Testing', () => {
     it('422 Validation failed', async() => {
             const data ={  
                 user_id : userId,
-                title : "hello this is my second id",
+                title : faker.lorem.paragraph(),
                  
                 }
         
             const res= await request
             .post('posts')
-            .set('Authorization', `Bearer ${accessToken}`)
+            .set('Authorization', `Bearer ${TOKEN}`)
             .send(data)
     
                console.log(res.body);

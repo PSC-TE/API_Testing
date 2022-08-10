@@ -1,11 +1,12 @@
 import request from '../config/common'
-import env from '../config/env'
+require('dotenv').config();
+const TOKEN = process.env.USER_TOKEN;
 import {dataForUpdate} from '../model/dataForPut'
 
 const PUT = async function (path){
     return await request
     .put(path)
-    .set('Authorization', `Bearer ${env.accessToken}`)
+    .set('Authorization', `Bearer ${TOKEN}`)
     .send(dataForUpdate);
     
 }

@@ -1,10 +1,10 @@
 import request from '../config/common'
-import env from '../config/env'
-
+require('dotenv').config();
+const TOKEN = process.env.USER_TOKEN;
 const DELETE = async function (path){
     return await request
     .delete(path)
-    .set('Authorization', `Bearer ${env.accessToken}`)
+    .set('Authorization', `Bearer ${TOKEN}`)
     
 }
 export default DELETE;

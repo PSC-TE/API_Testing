@@ -1,8 +1,9 @@
+require ('dotenv').config();
 import { expect } from 'chai';
 import supertest from 'supertest';
 const request = supertest('https://gorest.co.in/public/v2/')
-const accessToken= "0cbf1fe5581d59d2ced6d94b5c91227050eff309ac548ef564040f56b21ef8b6"
-
+const accessToken= process.env.USER_TOKEN;
+import { faker } from '@faker-js/faker';
 
 
 describe('Users', () => {
@@ -12,7 +13,8 @@ describe('Users', () => {
      */
     it('Get/users', (done) => {
          request
-        .get(`users?access-token=${accessToken}`)
+        .get(`users`)
+        // .query({gender :'female'})
         .end((err,res)=>{
             // console.log(err);
             // console.log(res);
@@ -44,6 +46,7 @@ describe('Users', () => {
    it('Get/users?queryParameters', () => {
        const url=`users?access-token=${accessToken}&page=5&gender=male&status=active`
     return request.get(url)
+    // .query({ page: '5',gender :'female'})
     .then((res)=>{
        // console.log(err);
        console.log(res.body);
@@ -86,10 +89,10 @@ describe('Users', () => {
      */
     it('Post/user with data', () => {
         const data ={
-            email : "sony512@yahoo.com",
-            name : "sony12",
-            gender :"male",
-            status : "active"
+            "email" :  faker.internet.email(),
+            "name" : faker.name.findName(),
+            "gender" :"male",
+            "status" : "active"
             }
 
         return request.post('users')
@@ -113,7 +116,7 @@ describe('Users', () => {
     it('Put/users/:id', () => {
         
         const data ={
-            name : `raviteja + ${Math.floor(Math.random()*10000)}`,
+            name : `Employee + ${Math.floor(Math.random()*10000)}`,
             status : 'active'
         }
         
