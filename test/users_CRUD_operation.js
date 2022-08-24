@@ -2,7 +2,7 @@ require ('dotenv').config();
 import { expect, use } from 'chai';
 import supertest from 'supertest';
 const request = supertest('https://gorest.co.in/public/v2/')
-const accessToken= process.env.USER_TOKEN;
+const accessToken= process.env.access_Token;
 
 
 let randomNum = Math.floor(Math.random()*10000);

@@ -6,7 +6,7 @@ import {dataForUpdate} from '../model/dataForPut'
 const PUT = async function (path){
     return await request
     .put(path)
-    .set('Authorization', `Bearer ${TOKEN}`)
+    .set('Authorization', TOKEN)
     .send(dataForUpdate);
     
 }

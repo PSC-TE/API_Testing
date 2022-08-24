@@ -1,7 +1,8 @@
-import request from '../config/common'
+const supertest = require ('supertest');
+const request = supertest("https://reqres.in/api/");
 import {expect} from 'chai'
 
-describe.skip('reqres suite',()=>{
+describe('reqres suite',()=>{
     it('get/resources', async()=>{
         let res = await request.get('{resource}')
         console.log(res.body.data);

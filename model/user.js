@@ -14,7 +14,8 @@ export const createRandomUser = async () => {
 
     const res = await request
     .post('users')
-    .set('Authorization', `Bearer ${TOKEN}`)
+    .set('Authorization', TOKEN)
     .send(userData);
+    console.log(res.body);
        return res.body.id;
 };

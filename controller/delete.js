@@ -4,7 +4,7 @@ const TOKEN = process.env.USER_TOKEN;
 const DELETE = async function (path){
     return await request
     .delete(path)
-    .set('Authorization', `Bearer ${TOKEN}`)
+    .set('Authorization', TOKEN)
     
 }
 export default DELETE;

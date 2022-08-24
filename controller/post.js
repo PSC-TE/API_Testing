@@ -6,7 +6,7 @@ import {userData} from '../model/userDataForPost'
 const POST = async function (path){
     return await request
     .post(path)
-    .set('Authorization', `Bearer ${TOKEN}`)
+    .set('Authorization', TOKEN)
     .send(userData);
     
 }

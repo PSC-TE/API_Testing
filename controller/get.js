@@ -4,7 +4,7 @@ const TOKEN = process.env.USER_TOKEN;
 const GET = async function (path){
     return await request 
     .get(path)
-    .set('Authorization', `Bearer ${TOKEN}`)
+    .set('Authorization', TOKEN)
 }
  
 export default GET;

@@ -20,7 +20,7 @@ describe('Using async wait', () => {
     
         await request
         .post('users')
-        .set('Authorization', `Bearer ${TOKEN}`)
+        .set('Authorization', TOKEN)
         .send(userData)
         .then((res)=>{
             expect(res.status).to.eq(201);
@@ -37,7 +37,7 @@ describe('Using async wait', () => {
     
         const res= await request
         .post('posts')
-        .set('Authorization', `Bearer ${TOKEN}`)
+        .set('Authorization', TOKEN)
         .send(data)
            console.log(res.body);
            expect(res.body).to.deep.include(data)
@@ -48,7 +48,7 @@ describe('Using async wait', () => {
     it('GET/posts/id', async() => {
         const res=await request
         .get(`posts/${postId}`)
-        .set('Authorization', `Bearer ${TOKEN}`)
+        .set('Authorization', TOKEN)
         expect(res.body.id).to.eq(postId);
         expect(res.status).to.eq(200);
         
@@ -84,11 +84,12 @@ describe('Negative Testing', () => {
         
             const res= await request
             .post('posts')
-            .set('Authorization', `Bearer ${TOKEN}`)
+            .set('Authorization', TOKEN)
             .send(data)
     
                console.log(res.body);
                expect(res.statusCode).to.eq(422)
+               expect(res.body).to.deep.include({ field: 'body', message: "can't be blank" })
                expect(res.body[0].field).to.eq('body');
                expect(res.body[0].message).to.eq("can't be blank");
 

@@ -12,6 +12,7 @@ describe('Using async wait', () => {
     before( async() => {
        userId =await createRandomUser();
     });
+    
     it('Post/users', async() => {    
         const data ={  
             user_id : userId,
@@ -21,7 +22,7 @@ describe('Using async wait', () => {
     
         const res= await request
         .post('posts')
-        .set('Authorization', `Bearer ${TOKEN}`)
+        .set('Authorization', TOKEN)
         .send(data)
 
            console.log(res.body);
@@ -32,11 +33,11 @@ describe('Using async wait', () => {
     it('GET/posts/id', async() => {
         const res=await request
         .get(`posts/${postId}`)
-        .set('Authorization', `Bearer ${TOKEN}`)
+        .set('Authorization', TOKEN)
         
         console.log(res.body);
         expect(res.body.id).to.eq(postId);
-        expect(res.status).to.eq(200);    
+        expect(res.status).to.eq(200);   
     });
 
    
